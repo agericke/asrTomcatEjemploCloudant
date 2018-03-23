@@ -20,11 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import asr.proyectoFinal.dao.CloudantPalabraStore;
 import asr.proyectoFinal.dominio.Palabra;
+import asr.proyectoFinal.services.Traductor;
 
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = {"/listar", "/insertar", "/hablar"})
+@WebServlet(urlPatterns = {"/listar", "/insertar", "/hablar", "/traducir"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -63,6 +64,36 @@ public class Controller extends HttpServlet {
 						palabra.setName(parametro);
 						store.persist(palabra);
 					    out.println(String.format("Almacenada la palabra: %s", palabra.getName()));			    	  
+					}
+				}
+				break;
+				
+			case "/traducir":
+				Palabra palabraParaTraducir = new Palabra();
+				
+				String parametroParaTraducir = request.getParameter("palabraTraducir");
+
+				if(parametroParaTraducir==null)
+				{
+					out.println("usage: /traducir?palabraTraducir=hola");
+				}
+				else
+				{
+//					String palabraTraducida = Traductor.translate(parametroParaTraducir);
+//					out.println(String.format("Palabra: %s", parametroParaTraducir));
+//					out.println(String.format("Palabra Traducida: %s", palabraTraducida));
+					if(store.getDB() == null) 
+					{
+						String palabraTraducida = Traductor.translate(parametroParaTraducir);
+						out.println(String.format("Palabra: %s", parametroParaTraducir));
+						out.println(String.format("Palabra Traducida: %s", palabraTraducida));
+					}
+					else
+					{
+						String palabraTraducida = Traductor.translate(parametroParaTraducir);
+						palabraParaTraducir.setName(palabraTraducida);
+						store.persist(palabraParaTraducir);
+					    out.println(String.format("Almacenada la palabra: %s", palabraParaTraducir.getName()));			    	  
 					}
 				}
 				break;
