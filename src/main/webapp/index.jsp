@@ -16,8 +16,14 @@
 <li><a href="insertar?palabra=alvaroGericke">Insertar</a></li>
 <li>
 	<form action="traducir">
-		<input type="text" name="palabraTraducir">
-		<input type="submit" value="Traducir del Inglés al Español">
+		<input type="text" name="textoTraducir">
+		<select name="idiomaDestino">
+			<option>en</option>
+			<option>es</option>
+			<option>fr</option>
+		</select>
+		
+		<input type="submit" value="Traducir">
 	</form>
 </li>
 </ul>

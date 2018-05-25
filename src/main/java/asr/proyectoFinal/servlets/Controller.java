@@ -71,11 +71,12 @@ public class Controller extends HttpServlet {
 			case "/traducir":
 				Palabra palabraParaTraducir = new Palabra();
 				
-				String parametroParaTraducir = request.getParameter("palabraTraducir");
+				String textoParaTraducir = request.getParameter("textoTraducir");
+				String idiomaATraducir = request.getParameter("idiomaDestino");
 
-				if(parametroParaTraducir==null)
+				if(textoParaTraducir==null)
 				{
-					out.println("usage: /traducir?palabraTraducir=hola");
+					out.println("usage: /traducir?palabraTraducir=hello&idiomaDestino=es");
 				}
 				else
 				{
@@ -84,16 +85,16 @@ public class Controller extends HttpServlet {
 //					out.println(String.format("Palabra Traducida: %s", palabraTraducida));
 					if(store.getDB() == null) 
 					{
-						String palabraTraducida = Traductor.translate(parametroParaTraducir);
-						out.println(String.format("Palabra: %s", parametroParaTraducir));
-						out.println(String.format("Palabra Traducida: %s", palabraTraducida));
+						String textoTraducido = Traductor.translate(textoParaTraducir, idiomaATraducir);
+						out.println(String.format("Texto: %s", textoParaTraducir));
+						out.println(String.format("Texto Traducido: %s", textoTraducido));
 					}
 					else
 					{
-						String palabraTraducida = Traductor.translate(parametroParaTraducir);
-						palabraParaTraducir.setName(palabraTraducida);
+						String textoTraducido = Traductor.translate(textoParaTraducir, idiomaATraducir);
+						palabraParaTraducir.setName(textoTraducido);
 						store.persist(palabraParaTraducir);
-					    out.println(String.format("Almacenada la palabra: %s", palabraParaTraducir.getName()));			    	  
+					    out.println(String.format("Almacenado el texto: %s", palabraParaTraducir.getName()));			    	  
 					}
 				}
 				break;
