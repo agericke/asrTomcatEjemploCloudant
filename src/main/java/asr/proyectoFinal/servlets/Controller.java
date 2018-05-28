@@ -12,20 +12,23 @@ import java.nio.Buffer;
 import java.nio.file.Files;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import asr.proyectoFinal.dao.CloudantPalabraStore;
 import asr.proyectoFinal.dominio.Palabra;
 import asr.proyectoFinal.services.Traductor;
+import asr.proyectoFinal.services.SentimentAnalysis;
 
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = {"/listar", "/insertar", "/hablar", "/traducir"})
+@WebServlet(urlPatterns = {"/listar", "/insertar", "/hablar", "/traducir","/analizarSent"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -76,30 +79,73 @@ public class Controller extends HttpServlet {
 
 				if(textoParaTraducir==null)
 				{
-					out.println("usage: /traducir?palabraTraducir=hello&idiomaDestino=es");
+					RequestDispatcher view = request.getRequestDispatcher("traductornuevo.jsp");
+					view.forward(request, response);
+					// out.println("usage: /traducir?palabraTraducir=hello&idiomaDestino=es");
 				}
 				else
 				{
-//					String palabraTraducida = Traductor.translate(parametroParaTraducir);
-//					out.println(String.format("Palabra: %s", parametroParaTraducir));
-//					out.println(String.format("Palabra Traducida: %s", palabraTraducida));
 					if(store.getDB() == null) 
 					{
 						String textoTraducido = Traductor.translate(textoParaTraducir, idiomaATraducir);
-						out.println(String.format("Texto: %s", textoParaTraducir));
-						out.println(String.format("Texto Traducido: %s", textoTraducido));
+						
+						request.setAttribute("textoTraducido", textoTraducido);
+						RequestDispatcher view = request.getRequestDispatcher("traductornuevo.jsp");
+						view.forward(request, response);
+						//out.println(String.format("Texto: %s", textoParaTraducir));
+						//out.println(String.format("Texto Traducido: %s", textoTraducido));
 					}
 					else
 					{
 						String textoTraducido = Traductor.translate(textoParaTraducir, idiomaATraducir);
 						palabraParaTraducir.setName(textoTraducido);
 						store.persist(palabraParaTraducir);
-					    out.println(String.format("Almacenado el texto: %s", palabraParaTraducir.getName()));			    	  
+						request.setAttribute("textoTraducido", textoTraducido);
+						RequestDispatcher view = request.getRequestDispatcher("traductornuevo.jsp");
+						view.forward(request, response);
+					    //out.println(String.format("Almacenado el texto: %s", palabraParaTraducir.getName()));			    	  
+					}
+				}
+				break;
+				
+			case "/analizarSent":
+				
+				Palabra sentimiento = new Palabra();
+				
+				String textoAAnalizar = request.getParameter("textoSentimiento");
+
+				if(textoAAnalizar==null)
+				{
+					//RequestDispatcher view = request.getRequestDispatcher("analizarsentimiento.jsp");
+					//view.forward(request, response);
+					out.println("usage: /analizasentimiento?textoSentimiento=Bueno");
+				}
+				else
+				{
+					if(store.getDB() == null) 
+					{
+						String sentimientoObtenido = SentimentAnalysis.analizarSentimiento(textoAAnalizar);
+						
+						request.setAttribute("sentimientoObtenido", sentimientoObtenido);
+						RequestDispatcher view = request.getRequestDispatcher("analizarsentimiento.jsp");
+						view.forward(request, response);
+						//out.println(String.format("Sentimiento: %s", sentimientoObtenido));
+					}
+					else
+					{
+						String sentimientoObtenido = SentimentAnalysis.analizarSentimiento(textoAAnalizar);
+						
+						sentimiento.setName(sentimientoObtenido);
+						store.persist(sentimiento);
+						request.setAttribute("sentimientoObtenido", sentimientoObtenido);
+						request.setAttribute("textoAnalizado", textoAAnalizar);
+						RequestDispatcher view = request.getRequestDispatcher("sentimentanalysis2.jsp");
+						view.forward(request, response);
+					    //out.println(String.format("Almacenado el texto: %s", palabraParaTraducir.getName()));			    	  
 					}
 				}
 				break;
 		}
-		out.println("</html>");
 	}
 
 	/**

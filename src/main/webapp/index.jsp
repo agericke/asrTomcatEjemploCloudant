@@ -32,7 +32,7 @@
 
   <body id="page-top">
 
-	<jsp:include page="./jsp/headers/header.jsp" />
+	<jsp:include page="./headers/header.jsp" />
 
     <!-- Header -->
     <header class="masthead">
@@ -60,7 +60,7 @@
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading"><a href="#">Traductor</a></h4>
+            <h4 class="service-heading"><a href="../traductor.jsp">Traductor</a></h4>
             <p class="text-muted">Traduce cualquier texto. Microservicio con detección de idioma automático, y posible selección de varios idiomas de salida.</p>
           </div>
           <div class="col-md-4">
@@ -68,7 +68,7 @@
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading"><a href="#">Voice2Text</a></h4>
+            <h4 class="service-heading"><a href="../voicetext.jsp">Voice2Text</a></h4>
             <p class="text-muted">Microservicio para convertir cualquier audio en texto! Adjunto tu archivo de audio y mira como se convierte en texto</p>
           </div>
           <div class="col-md-4">
@@ -76,7 +76,7 @@
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading"><a href="#">Análisis de Sentimientos</a></h4>
+            <h4 class="service-heading"><a href="../sentimentanalysis.jsp">Sentiment Analyzer</a></h4>
             <p class="text-muted"></p>
           </div>
         </div>
@@ -128,7 +128,7 @@
       </div>
     </section>
 
-    <jsp:include page="./jsp/footer/footer.jsp" />
+    <jsp:include page="./footer/footer.jsp" />
 	
 	 <!-- Bootstrap core JavaScript -->
     <script src="./vendor/jquery/jquery.min.js"></script>
