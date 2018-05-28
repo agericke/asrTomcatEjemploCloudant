@@ -2,51 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<% 
-
-	String sentimientoObtenido = request.getAttribute("sentimientoObtenido").toString();
-	String textoAnalizado = "";
-	
-	String color  = "#000";
-	String border = "#000";
-
-	if (sentimientoObtenido == null)
-		sentimientoObtenido = "";
-	
-	System.out.println("Estoy fuera "+sentimientoObtenido);
-	
-	try {
-		textoAnalizado = request.getParameter("textoSentimiento").toString();
-		if (textoAnalizado == null)
-			textoAnalizado = "";
-		
-		System.out.println("Estoy en "+sentimientoObtenido);
-
-		if ( sentimientoObtenido.equals("Negative") ) {
-
-			color = "#ff6666";
-			border = "#ff0000";
-
-		} else if ( sentimientoObtenido.equals("Positive") ) {
-
-			color = "#80ff80";
-			border = "#00ff00";
-
-		} else {
-
-			color = "#999999";
-			border = "#808080";
-		}
-	}
-	catch (Exception exception) {
-		
-		System.out.println("Estoy en la excepción "+sentimientoObtenido);
-		textoAnalizado = "";
-	}
-	
-
-%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -81,41 +36,25 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">ANALIZADOR DE SENTIMIENTOS</h2>
-            <h3 class="section-subheading text-muted">Introduce el texto que quieras analizar. El sistema analizará dicho texto y extraerá el sentimiento que se expresa en dicho texto.</h3>
+            <h2 class="section-heading text-uppercase">TONE ANALYZER</h2>
+            <h3 class="section-subheading text-muted">Introduce el texto que quieras analizar. El sistema analizará dicho texto y extraerá el tono que se expresa en dicho texto.</h3>
           </div>
         </div>
         
         <div class="row">
           <div class="col-lg-12">
+	         <form id="contactForm" name="sentMessage" novalidate="novalidate" action="analizarEmo">
 	          <div class="row">
-                <div class="col-md-6 center">
+                <div class="col-md-5">
                   <div class="form-group">
-                    <textarea class="form-control" id="message" name="textoSentimiento"><%= textoAnalizado %></textarea>
+                    <textarea class="form-control" id="message" name="textoEmocion" placeholder="Introduzca el texto a analizar..." required="required" data-validation-required-message="Please enter a message."></textarea>
                     <p class="help-block text-danger"></p>
                   </div>
-                	<div class="analysis-info">
-						<span id="sentiment" style="font-weight: 700;
-	                                                        font-size: big;
-	                                                        color: #ffffff;
-	                                                        background: <%= color %>;
-	                                                        margin: 0px 0px 10px 0px;
-	                                                        overflow: hidden;
-	                                                        padding: 2px;
-	                                                        border-radius: 10px 0px 10px 0px;
-	                                                        -webkit-border-radius: 10px 0px 10px 0px;
-	                                                        border: 1.5px solid <%= border %>;
-	                                                        width: 20%;
-	                                                        text-align: center;
-	                                                        float: left;">
-			                <%= sentimientoObtenido %>
-			                </span>
-                        </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-lg-12 text-center">
                   <div id="success"></div>
-                  <a href="./sentimentanalysis.jsp"><button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Volver</button></a>
+                  <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Analizar</button>
                 </div>
               </div>
             </form>

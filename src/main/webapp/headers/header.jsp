@@ -15,10 +15,13 @@
 					<a class="nav-link js-scroll-trigger" href="../traductor.jsp">Traductor</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link js-scroll-trigger" href="../voicetext.jsp">Voice2Text</a>
+					<a class="nav-link js-scroll-trigger" href="../emotionanalysis.jsp">ToneAnalyzer</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link js-scroll-trigger" href="../sentimentanalysis.jsp">Sentiment Analyzer</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link js-scroll-trigger" href="/listar">Database</a>
 				</li>
 			</ul>
 		</div>

@@ -23,12 +23,13 @@ import javax.servlet.http.HttpSession;
 import asr.proyectoFinal.dao.CloudantPalabraStore;
 import asr.proyectoFinal.dominio.Palabra;
 import asr.proyectoFinal.services.Traductor;
+import asr.proyectoFinal.services.EmotionAnalysis;
 import asr.proyectoFinal.services.SentimentAnalysis;
 
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = {"/listar", "/insertar", "/hablar", "/traducir","/analizarSent"})
+@WebServlet(urlPatterns = {"/listar", "/insertar","/traducir","/analizarSent", "/analizarEmo"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,8 +45,15 @@ public class Controller extends HttpServlet {
 			case "/listar":
 				if(store.getDB() == null)
 					  out.println("No hay DB");
-				else
+				else {
+					
+					request.setAttribute("palabras", store.getAll());
+					System.out.println();
+					RequestDispatcher view = request.getRequestDispatcher("table.jsp");
+					view.forward(request, response);
 					out.println("Palabras en la BD Cloudant:<br />" + store.getAll());
+				}
+					
 				break;
 				
 			case "/insertar":
@@ -66,6 +74,8 @@ public class Controller extends HttpServlet {
 					{
 						palabra.setName(parametro);
 						store.persist(palabra);
+						
+						response.sendRedirect("/listar");
 					    out.println(String.format("Almacenada la palabra: %s", palabra.getName()));			    	  
 					}
 				}
@@ -140,6 +150,44 @@ public class Controller extends HttpServlet {
 						request.setAttribute("sentimientoObtenido", sentimientoObtenido);
 						request.setAttribute("textoAnalizado", textoAAnalizar);
 						RequestDispatcher view = request.getRequestDispatcher("sentimentanalysis2.jsp");
+						view.forward(request, response);
+					    //out.println(String.format("Almacenado el texto: %s", palabraParaTraducir.getName()));			    	  
+					}
+				}
+				break;
+				
+			case "/analizarEmo":
+				
+				Palabra emocion = new Palabra();
+				
+				String textoParaEmocion = request.getParameter("textoEmocion");
+
+				if(textoParaEmocion==null)
+				{
+					//RequestDispatcher view = request.getRequestDispatcher("analizarsentimiento.jsp");
+					//view.forward(request, response);
+					out.println("usage: /analizasentimiento?textoSentimiento=Bueno");
+				}
+				else
+				{
+					if(store.getDB() == null) 
+					{
+						String emocionObtenida = SentimentAnalysis.analizarSentimiento(textoParaEmocion);
+						
+						out.println(String.format("Emocion: %s", emocionObtenida));
+						request.setAttribute("emocionObtenida", emocionObtenida);
+						RequestDispatcher view = request.getRequestDispatcher("analizaremocion.jsp");
+						view.forward(request, response);
+					}
+					else
+					{
+						String emocionObtenida = EmotionAnalysis.analizarEmocion(textoParaEmocion);
+						
+						emocion.setName(emocionObtenida);
+						store.persist(emocion);
+						request.setAttribute("emocionObtenida", emocionObtenida);
+						request.setAttribute("textoAnalizado", textoParaEmocion);
+						RequestDispatcher view = request.getRequestDispatcher("emotionanalysis2.jsp");
 						view.forward(request, response);
 					    //out.println(String.format("Almacenado el texto: %s", palabraParaTraducir.getName()));			    	  
 					}

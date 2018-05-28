@@ -57,6 +57,8 @@ public class SentimentAnalysis {
 		//System.out.println("El idioma es:");
 		//System.out.println(idioma);
 		String sentimiento = "";
+		//System.out.println(idioma.equals("en"));
+		
 		if (!idioma.equals("en")) {
 			sentimiento = "Neutral";
 		} else {
@@ -73,12 +75,12 @@ public class SentimentAnalysis {
 //				System.out.println(String.format("El sentimiento obtenido es: %s", sentimiento));
 //				System.out.println(String.format("El sentimiento en numero es: %f", sentimientoNum));
 //				System.out.println(sentimientoNum);
-				if (sentimientoNum > 0.6) {
+				if (sentimientoNum > 0.4) {
 					sentimiento = "Positive";
-				} else if (sentimientoNum > 0.4) {
-					sentimiento = "Negative";
-				} else {
+				} else if (sentimientoNum > 0.2) {
 					sentimiento = "Neutral";
+				} else {
+					sentimiento = "Negative";
 				}
 				
 			}

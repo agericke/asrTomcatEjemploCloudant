@@ -4,43 +4,50 @@
 
 <% 
 
-	String sentimientoObtenido = request.getAttribute("sentimientoObtenido").toString();
+	String emocionObtenida = request.getAttribute("emocionObtenida").toString();
 	String textoAnalizado = "";
 	
-	String color  = "#000";
-	String border = "#000";
-
-	if (sentimientoObtenido == null)
-		sentimientoObtenido = "";
+	System.out.println(emocionObtenida);
 	
-	System.out.println("Estoy fuera "+sentimientoObtenido);
+	String imagepath  = "./img/neutral-emotion.png";
+
+	if (emocionObtenida == null)
+		emocionObtenida = "";
+	
+	System.out.println("Estoy fuera "+emocionObtenida);
 	
 	try {
-		textoAnalizado = request.getParameter("textoSentimiento").toString();
+		textoAnalizado = request.getParameter("textoEmocion").toString();
 		if (textoAnalizado == null)
 			textoAnalizado = "";
 		
-		System.out.println("Estoy en "+sentimientoObtenido);
+		System.out.println("Estoy en "+emocionObtenida);
 
-		if ( sentimientoObtenido.equals("Negative") ) {
+		if ( emocionObtenida.equals("Anger") ) {
 
-			color = "#ff6666";
-			border = "#ff0000";
+			imagepath = "./img/anger.png";
 
-		} else if ( sentimientoObtenido.equals("Positive") ) {
+		} else if ( emocionObtenida.equals("Fear") ) {
 
-			color = "#80ff80";
-			border = "#00ff00";
+			imagepath = "./img/negative-fear.png";
 
-		} else {
+		}  else if ( emocionObtenida.equals("Joy") ) {
 
-			color = "#999999";
-			border = "#808080";
+			imagepath = "./img/joy.png";
+
+		}  else if ( emocionObtenida.equals("Sadness") ) {
+
+			imagepath = "./img/sadness.png";
+
+		}  else {
+
+			imagepath = "./img/neutral-emotion.png";
+
 		}
 	}
 	catch (Exception exception) {
 		
-		System.out.println("Estoy en la excepción "+sentimientoObtenido);
+		System.out.println("Estoy en la excepción "+emocionObtenida);
 		textoAnalizado = "";
 	}
 	
@@ -81,8 +88,8 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">ANALIZADOR DE SENTIMIENTOS</h2>
-            <h3 class="section-subheading text-muted">Introduce el texto que quieras analizar. El sistema analizará dicho texto y extraerá el sentimiento que se expresa en dicho texto.</h3>
+            <h2 class="section-heading text-uppercase">TONE ANALYZER</h2>
+            <h3 class="section-subheading text-muted">Introduce el texto que quieras analizar. El sistema analizará dicho texto y extraerá el tono que se expresa en dicho texto.</h3>
           </div>
         </div>
         
@@ -91,31 +98,26 @@
 	          <div class="row">
                 <div class="col-md-6 center">
                   <div class="form-group">
-                    <textarea class="form-control" id="message" name="textoSentimiento"><%= textoAnalizado %></textarea>
+                    <textarea class="form-control" id="message" name="textoEmocion"><%= textoAnalizado %></textarea>
                     <p class="help-block text-danger"></p>
                   </div>
-                	<div class="analysis-info">
-						<span id="sentiment" style="font-weight: 700;
-	                                                        font-size: big;
-	                                                        color: #ffffff;
-	                                                        background: <%= color %>;
-	                                                        margin: 0px 0px 10px 0px;
-	                                                        overflow: hidden;
-	                                                        padding: 2px;
-	                                                        border-radius: 10px 0px 10px 0px;
-	                                                        -webkit-border-radius: 10px 0px 10px 0px;
-	                                                        border: 1.5px solid <%= border %>;
-	                                                        width: 20%;
-	                                                        text-align: center;
-	                                                        float: left;">
-			                <%= sentimientoObtenido %>
-			                </span>
+                	<div class="analysis-info"> 
+                            <span id="emotion" style="margin: 0px 0px 10px 10px;
+                            							overflow: hidden;
+                            							padding: 2px;
+                            							border-radius: 10px 0px 10px 0px;
+                            							-webkit-border-radius: 10px 0px 10px 0px;
+                            							width: 10%;
+                                                        text-align: center;
+                                                        float: left;">
+                                <img id="emotion-image" src="<%= imagepath %>" style="height: 25px; width: auto">
+                            </span>
                         </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-lg-12 text-center">
                   <div id="success"></div>
-                  <a href="./sentimentanalysis.jsp"><button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Volver</button></a>
+                  <a href="./emotionanalysis.jsp"><button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Volver</button></a>
                 </div>
               </div>
             </form>

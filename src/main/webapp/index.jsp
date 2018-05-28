@@ -55,7 +55,7 @@
           </div>
         </div>
         <div class="row text-center">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
@@ -63,70 +63,34 @@
             <h4 class="service-heading"><a href="../traductor.jsp">Traductor</a></h4>
             <p class="text-muted">Traduce cualquier texto. Microservicio con detección de idioma automático, y posible selección de varios idiomas de salida.</p>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+              <i class="fa fa-comment-o fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading"><a href="../voicetext.jsp">Voice2Text</a></h4>
-            <p class="text-muted">Microservicio para convertir cualquier audio en texto! Adjunto tu archivo de audio y mira como se convierte en texto</p>
+            <h4 class="service-heading"><a href="../emotionanalysis.jsp">ToneAnalyzer</a></h4>
+            <p class="text-muted">Microservicio para analizar el tono expresado en un texto. Conoce la emoción que transmite una palabra</p>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+              <i class="fa fa-comments-o fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading"><a href="../sentimentanalysis.jsp">Sentiment Analyzer</a></h4>
-            <p class="text-muted"></p>
+            <p class="text-muted">Microservicio para analizar el sentimiento expresado en un texto. Adjunto tu texto y conoce el sentimiento que transmite.</p>
+          </div>
+          <div class="col-md-3">
+            <span class="fa-stack fa-4x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-database fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading"><a href="listar">Base de Datos</a></h4>
+            <p class="text-muted">Microservicio que actúa como persistencia de la aplicación. Lista todos los nombres guardados, o inserta nuevos nombres.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <form id="contactForm" name="sentMessage" novalidate="novalidate">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <input class="form-control" id="name" type="text" placeholder="Your Name *" required="required" data-validation-required-message="Please enter your name.">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" id="email" type="email" placeholder="Your Email *" required="required" data-validation-required-message="Please enter your email address.">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" required="required" data-validation-required-message="Please enter your phone number.">
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <textarea class="form-control" id="message" placeholder="Your Message *" required="required" data-validation-required-message="Please enter a message."></textarea>
-                    <p class="help-block text-danger"></p>
-                  </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-lg-12 text-center">
-                  <div id="success"></div>
-                  <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <jsp:include page="./footer/footer.jsp" />
 	
