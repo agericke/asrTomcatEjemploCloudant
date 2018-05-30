@@ -39,7 +39,7 @@
       <div class="container">
         <div class="intro-text">
           <div class="intro-lead-in">PRÁCTICA FINAL ASR</div>
-          <div class="intro-heading text-uppercase">Desarrollo de aplicaciones mediante Microserviios</div>
+          <div class="intro-heading text-uppercase">Desarrollo de aplicaciones mediante Microserviios. Nuevo.</div>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Ver Microservicios</a>
         </div>
       </div>
